@@ -1,5 +1,8 @@
-package com.example.model;
+package com.example.client.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Client {
 
     private String firstName;
@@ -8,6 +11,8 @@ public class Client {
 
     private String mobileNumber;
 
+    @Id
+    @GeneratedValue
     private String idNumber;
 
     private String physicalAddress;
@@ -17,8 +22,8 @@ public class Client {
     public Client(String firstName, String lastName, String mobileNumber, String idNumber, String physicalAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mobileNumber = mobileNumber;
-        this.idNumber = idNumber;
+        this.mobileNumber = mobileNumber;       
+        this.idNumber = idNumber;        
         this.physicalAddress = physicalAddress;
     }
 

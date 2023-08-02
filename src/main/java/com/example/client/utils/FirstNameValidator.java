@@ -1,4 +1,10 @@
 package com.example.client.utils;
 
-public class FirstNameValidator {
+import java.util.function.Predicate;
+
+public class FirstNameValidator implements Predicate<String> {
+    @Override
+    public boolean test(String s) {
+        return false;
+    }
 }
