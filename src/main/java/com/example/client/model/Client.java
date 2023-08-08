@@ -1,30 +1,40 @@
 package com.example.client.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Client {
 
-    private String firstName;
-
-    private String lastName;
-
-    private String mobileNumber;
-
     @Id
     @GeneratedValue
+    private long id;
+    @NotBlank(message = "Name is mandatory")
+    private String firstName;
+    @NotBlank(message = "Last name is mandatory")
+    private String lastName;
+    @Column(unique = true)
+    private String mobileNumber;
+    @NotBlank(message = "Id number is mandatory")
+    @Column(unique = true)
     private String idNumber;
 
-    private String physicalAddress;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Client() {}
 
-    public Client(String firstName, String lastName, String mobileNumber, String idNumber, String physicalAddress) {
+    public Client(String firstName, String lastName, String mobileNumber, String idNumber, PhysicalAddress physicalAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;       
         this.idNumber = idNumber;        
-        this.physicalAddress = physicalAddress;
+
     }
 
     public String getFirstName() {
@@ -57,14 +67,6 @@ public class Client {
 
     public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
-    }
-
-    public String getPhysicalAddress() {
-        return physicalAddress;
-    }
-
-    public void setPhysicalAddress(String physicalAddress) {
-        this.physicalAddress = physicalAddress;
     }
 
 }
