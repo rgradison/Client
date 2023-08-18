@@ -1,39 +1,40 @@
 package com.example.client.controller;
 
+import com.example.client.AuthenticationResponse;
 import com.example.client.model.Client;
+import com.example.client.model.PhysicalAddress;
 import com.example.client.service.ClientService;
 import com.example.client.utils.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping("/api/v1")
 public class ClientController {
-    @Autowired
+
     private final ClientService clientService;
-        
+
+    @Autowired
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
-    //Create client
-    @PostMapping("/save")
-    public void saveClient(@RequestBody Client client) throws ValidationException {
+    @PostMapping("/client/save")
+    public ResponseEntity<AuthenticationResponse> saveClient(@RequestBody Client client) throws ValidationException {
+        return ResponseEntity.ok(clientService.saveClient(client));
+    }
 
-        clientService.saveClient(client);
-    }    
-
-    //Retrieve client by first Name
     @GetMapping("/find/by/firstname/{firstname}")
     public ResponseEntity<Optional<Client>> findByFirstName(@PathVariable final String firstname){
         return ResponseEntity.ok(clientService.findByFirstName(firstname));
     }
 
     @GetMapping("/find/by/id/{idnumber}")
-    public ResponseEntity<Optional<Client>> findByIdNumber(@PathVariable final String idnumber){
+    public ResponseEntity<Optional<Client>> findByIdNumber(@PathVariable final Long idnumber){
         return ResponseEntity.ok(clientService.findByIdNumber(idnumber));
     }
 

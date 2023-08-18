@@ -1,13 +1,18 @@
 #--------------------------------------------- Database configuration Docker--------------------------------------------------
 spring:
+  sql:
+    init:
+      mode: always
   datasource:
-    url: jdbc:h2:mem:clientdb
+    #url: jdbc:h2:mem:clientdb
+    url: jdbc:h2:file:~/IdeaProjects/Client/src/main/resources/data/clientdb;AUTO_SERVER=TRUE
+    
     username: sa
     password: password
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
@@ -15,6 +20,8 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
   main:
     allow-circular-references: true
-#--------------------------------------------- Enable console logging------------------------------------------------------------------
+  #--------------------------------------------- Enable console logging------------------------------------------------------------------
   h2:
     console.enabled: true
+    # default path: h2-console
+    #spring.h2.console.path=/h2-ui alternative

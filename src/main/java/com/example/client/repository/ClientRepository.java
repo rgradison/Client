@@ -12,11 +12,11 @@ import java.util.Optional;
 // which will return the List<Laptops>
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, String> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
     //localhost:8080/api/v1/client/find/by/firstname/King
     //Instead you can use native sql query which is more easier to use. here '?' stands for the parameter that you are passing.
     //@Query(value = "SELECT * FROM client WHERE firstname=?",nativeQuery = true)
     Optional<Client> findByFirstName(String firstName);
-    Optional<Client> findByIdNumber(String idNumber);
+    Optional<Client> findByIdNumber(Long idNumber);
     Optional<Client> findByMobileNumber(String mobileNumber);
 }

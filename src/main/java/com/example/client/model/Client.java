@@ -2,10 +2,19 @@ package com.example.client.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@AllArgsConstructor
+@Data
 @Entity
 public class Client {
-
     @Id
     @GeneratedValue
     private long id;
@@ -19,54 +28,46 @@ public class Client {
     @Column(unique = true)
     private String idNumber;
 
-    public long getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    private List<PhysicalAddress> physicalAddress = new ArrayList<>();
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Client() {}
-
-    public Client(String firstName, String lastName, String mobileNumber, String idNumber, PhysicalAddress physicalAddress) {
+    public Client(String firstName, String lastName, String mobileNumber, String idNumber, List<PhysicalAddress> physicalAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;       
         this.idNumber = idNumber;        
-
+        this.physicalAddress = physicalAddress;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Client() {}
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
     }
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
-    public String getIdNumber() {
-        return idNumber;
-    }
-
     public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
+    }
+
+    public void addPhysicalAddress(PhysicalAddress physicalAddress){
+        this.physicalAddress.add(physicalAddress);
+    }
+    
+     public void removePhysicalAddress(PhysicalAddress physicalAddress){
+        this.physicalAddress.remove(physicalAddress);
     }
 
 }
