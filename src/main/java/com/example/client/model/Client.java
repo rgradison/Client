@@ -18,12 +18,16 @@ public class Client {
     @Id
     @GeneratedValue
     private long id;
+
     @NotBlank(message = "Name is mandatory")
     private String firstName;
+
     @NotBlank(message = "Last name is mandatory")
     private String lastName;
+
     @Column(unique = true)
     private String mobileNumber;
+
     @NotBlank(message = "Id number is mandatory")
     @Column(unique = true)
     private String idNumber;
